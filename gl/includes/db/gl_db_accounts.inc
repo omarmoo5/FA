@@ -18,14 +18,23 @@ function add_gl_account($account_code, $account_name, $account_type, $account_co
 	return db_query($sql);
 }
 
-function update_gl_account($account_code, $account_name, $account_type, $account_code2)
+function update_gl_account($account_code,$account_list,$account_name, $account_type, $account_code2)
 {
     $sql = "UPDATE ".TB_PREF."chart_master SET account_name=".db_escape($account_name)
+    .",account_code=".db_escape($account_code)
     .",account_type=".db_escape($account_type).", account_code2=".db_escape($account_code2)
-		." WHERE account_code = ".db_escape($account_code);
+		." WHERE account_code = ".db_escape($account_list);
 
 	return db_query($sql);
 }
+
+
+function update_gl_trans($account_code,$account_list)
+{
+    $sql = "UPDATE ".TB_PREF."gl_trans SET account=".db_escape($account_code)."  WHERE account = ".db_escape($account_list);
+	return db_query($sql);
+}
+
 
 function delete_gl_account($code)
 {
@@ -104,7 +113,6 @@ function gl_account_in_company_defaults($acc)
 		OR name='retained_earnings_act'
 		OR name='freight_act'
 		OR name='deferred_income_act'
-		OR name='grn_clearing_act'
 		OR name='default_sales_act' 
 		OR name='default_sales_discount_act'
 		OR name='default_prompt_payment_act'
@@ -225,7 +233,7 @@ function is_subledger_account($account)
 
 	$result = db_query($sql,"Couldn't test AR/AP account");
 	$myrow = db_fetch_row($result);
-	return $myrow == false ? 0 : $myrow[0];
+	return $myrow[0];
 }
 
 function get_subaccount_data($code_id, $person_id)

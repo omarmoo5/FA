@@ -21,7 +21,7 @@ page(_($help_context = "Chart of Accounts"), false, false, "", $js);
 
 include($path_to_root . "/includes/ui.inc");
 include($path_to_root . "/gl/includes/gl_db.inc");
-include_once($path_to_root . "/admin/db/tags_db.inc");
+include($path_to_root . "/admin/db/tags_db.inc");
 include_once($path_to_root . "/includes/data_checks.inc");
 
 check_db_has_gl_account_groups(_("There are no account groups defined. Please define at least one account group before entering accounts."));
@@ -51,9 +51,9 @@ else
 
 if (isset($_POST['add']) || isset($_POST['update'])) 
 {
-
+	
 	$input_error = 0;
-
+	
 	if (strlen(trim($_POST['account_code'])) == 0) 
 	{
 		$input_error = 1;
@@ -86,12 +86,16 @@ if (isset($_POST['add']) || isset($_POST['update']))
 			{
 				display_error(_("The account belongs to a bank account and cannot be inactivated."));
 			}
-    		elseif (update_gl_account($_POST['account_code'], $_POST['account_name'], 
+    		elseif (update_gl_account($_POST['account_code'],$_POST['AccountList'], $_POST['account_name'], 
 				$_POST['account_type'], $_POST['account_code2'])) {
 				update_record_status($_POST['account_code'], $_POST['inactive'],
 					'chart_master', 'account_code');
 				update_tag_associations(TAG_ACCOUNT, $_POST['account_code'], 
 					$_POST['account_tags']);
+
+				if($_POST['account_code'] != $_POST['AccountList']){
+					update_gl_trans($_POST['account_code'],$_POST['AccountList']);
+				}
 				$Ajax->activate('account_code'); // in case of status change
 				display_notification(_("Account data has been updated."));
 			}
@@ -103,7 +107,7 @@ if (isset($_POST['add']) || isset($_POST['update']))
 				{
 					add_tag_associations($_POST['account_code'], $_POST['account_tags']);
 					display_notification(_("New account has been added."));
-					$selected_account = $_POST['AccountList'] = $_POST['account_code'];
+					$selected_account = $_POST['account_code'];
 				}
 			else
                  display_error(_("Account not added, possible duplicate Account Code."));
@@ -218,11 +222,14 @@ br(1);
 start_table(TABLESTYLE2);
 
 if ($selected_account != "") 
-{
+{	
+
+
 	//editing an existing account
 	$myrow = get_gl_account($selected_account);
 
 	$_POST['account_code'] = $myrow["account_code"];
+
 	$_POST['account_code2'] = $myrow["account_code2"];
 	$_POST['account_name']	= $myrow["account_name"];
 	$_POST['account_type'] = $myrow["account_type"];
@@ -234,13 +241,14 @@ if ($selected_account != "")
  	 	$tagids[] = $tag['id'];
  	$_POST['account_tags'] = $tagids;
 
-	hidden('account_code', $_POST['account_code']);
+	// hidden('account_code', $_POST['account_code']);
 	hidden('selected_account', $selected_account);
-		
-	label_row(_("Account Code:"), $_POST['account_code']);
+	// label_row(_("Account Code:"), $_POST['account_code']);
+	text_row_ex(_("Account Code:"), 'account_code', 15);
 } 
 else
 {
+
 	if (!isset($_POST['account_code'])) {
 		$_POST['account_tags'] = array();
 		$_POST['account_code'] = $_POST['account_code2'] = '';
@@ -251,6 +259,7 @@ else
 	text_row_ex(_("Account Code:"), 'account_code', 15);
 }
 
+// text_row_ex(_("Account Code:"), 'account_code', 15);
 text_row_ex(_("Account Code 2:"), 'account_code2', 15);
 
 text_row_ex(_("Account Name:"), 'account_name', 60);
