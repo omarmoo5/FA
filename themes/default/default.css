@@ -16,35 +16,55 @@
 |                                                   |
 \--------------------------------------------------*/
 
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
+
+@media print {
+
+	.printlink,
+	.print-footer,
+	a[href*="print"],
+	a[href*="close"],
+	a[onclick*="close"],
+	a[href*="goBack"] {
+		/* Target goBack */
+		display: none !important;
+	}
+}
 
 body {
-	font-family: Verdana, Arial, Helvetica;
+	font-family: 'Almarai', Verdana, Arial, Helvetica;
 	background: #285b86;
 	font-size: 10px;
 	margin: 5px 0 0 5px;
 	padding: 0;
 }
 
-tr, td, th {
+tr,
+td,
+th {
 	font-size: 11px;
 	line-height: 19px;
 }
+
 /*
 table {
 	text-align: left;
 }
 */
 textarea {
+	font-family: 'Almarai';
 	font-size: 12px;
 }
 
-input, select {
+input,
+select {
+	font-family: 'Almarai';
 	font-size: 11px;
 	padding: 1px;
 }
 
 select {
-    max-width: 230px;
+	max-width: 230px;
 }
 
 option.inactive {
@@ -76,7 +96,8 @@ a:active {
 	text-decoration: none;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
 	color: #2d8628;
 	text-decoration: underline;
 }
@@ -91,13 +112,14 @@ button {
 	padding: 1px 0px;
 }
 
-button img, span {
-	padding: 0px 2px ;
+button img,
+span {
+	padding: 0px 2px;
 	vertical-align: middle;
 }
 
 .callout_main {
-	font-family: Verdana, Arial, Helvetica;
+	font-family: 'Almarai', Verdana, Arial, Helvetica;
 	border: none;
 	width: 99%;
 	margin: 0;
@@ -121,7 +143,7 @@ button img, span {
 }
 
 .quick_menu_selected {
-	font-family: Verdana, Arial, Helvetica;
+	font-family: 'Almarai', Verdana, Arial, Helvetica;
 	font-size: 13px;
 	border: none;
 	white-space: nowrap;
@@ -172,46 +194,61 @@ div.logoutBar {
 	border-bottom: 1px solid #8cacbb;
 	text-align: right;
 }
+
 div.logoutBar a {
 	font-weight: normal;
 	margin-left: 1em;
 	color: #436976;
 	background-color: transparent;
 }
+
 div.logoutBar img {
 	vertical-align: top;
 }
 
 div.tabs {
-	padding: 3px 0 0 0;
-	background: none transparent scroll repeat 0% 0%;
-	white-space: nowrap;
-	border-collapse: collapse;
-	border-bottom: 1px solid #8cacbb;
+    padding: 3px 0 0 0;
+    background: none transparent scroll repeat 0% 0%;
+    white-space: nowrap;
+    border-collapse: collapse;
+    border-bottom: 1px solid #8cacbb;
+}
 
-}
 div.tabs a {
-	border: 1px solid #8cacbb;
-	padding: 3px 10px;
-	font-weight: normal;
-	background: white scroll repeat 0% 0%;
-	color: #436976;
-	margin-right: 0;
-	height: 10px;
+    border: 1px solid #8cacbb;
+    padding: 3px 10px;
+    font-weight: normal;
+    background: white;
+    color: #436976;
+    margin: 0 0px;       /* small margin both sides */
+    height: auto;        /* let the text size decide */
+    line-height: normal; /* use font metrics */
+    display: inline-block; /* prevent inline clipping */
 }
+
+/* Selected tab */
 div.tabs a.selected {
-	border-top: 1px solid #8cacbb;
-	border-right: 1px solid #8cacbb;
-	border-bottom:  1px solid #dee7ec;
-	border-left: 1px solid #8cacbb;
-	font-weight: normal;
-	background: #dee7ec;
-	color: #436976;
+    border-top: 1px solid #8cacbb;
+    border-right: 1px solid #8cacbb;
+    border-bottom: 1px solid #dee7ec;
+    border-left: 1px solid #8cacbb;
+    font-weight: normal;
+    background: #dee7ec;
+    color: #436976;
 }
+
+/* Hover */
 div.tabs a:hover {
-	background: #dee7ec;
-	color: #436976;
+    background: #dee7ec;
+    color: #436976;
 }
+
+/* RTL support */
+html[dir="rtl"] div.tabs {
+    direction: rtl;
+    text-align: right;
+}
+
 
 .menu_group {
 	font-size: 13px;
@@ -245,7 +282,7 @@ div.tabs a:hover {
 }
 
 .footer {
-	font-family: Verdana, Arial, Helvetica;
+	font-family: 'Almarai', Verdana, Arial, Helvetica;
 	color: #cccccc;
 	font-weight: normal;
 	font-size: 9px;
@@ -330,7 +367,8 @@ div.tabs a:hover {
 	color: #ff6666;
 }
 
-.redfg, a.redfg {
+.redfg,
+a.redfg {
 	color: red;
 	font-weight: bold;
 }
@@ -360,29 +398,52 @@ div.tabs a:hover {
 }
 
 table.tablestyle {
-	border-collapse: collapse;
-	border: 1px solid #8cacbb;
+	width: 95%;
+	/* separate so corners can be rounded without conflict */
+	border-collapse: separate;
+	border-spacing: 0;
+	/* no gaps between cells unless you want some extra spacing */
+
+	border-radius: 10px;
+	/* rounded corners on the outer table */
+	border: 1px solid #ccc;
+	overflow: hidden;
+	/* helps maintain round corners in some browsers */
 }
+
+table.tablestyle th,
 table.tablestyle td {
-	border-collapse: collapse;
-	border: 1px solid #8cacbb;
+	/* If you only do border-bottom or border-left, you'll get partial lines; 
+	   to mimic a grid, give each cell a full border or combine selectors. */
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: center;
 }
+
+table.tablestyle th {
+	background-color: #eee;
+}
+
 table.tablestyle2 {
 	border-collapse: collapse;
 	border: 1px solid #cccccc;
 }
+
 table.tablestyle2 td {
 	border-collapse: collapse;
 	border: 1px solid #cccccc;
 }
+
 table.tablestyle_inner {
 	border-collapse: collapse;
 	border: 1px solid #f9f9f9;
 }
+
 table.tablestyle_inner td {
 	border-collapse: collapse;
 	border: 1px solid #f9f9f9;
 }
+
 .tablestyle_noborder {
 	padding: 3px;
 }
@@ -398,18 +459,20 @@ table.tablestyle_inner td {
 
 .login {
 	width: 350px;
-	border:1px solid #ccc;
+	border: 1px solid #ccc;
 	border-left: 12px solid #367cb5;
 	background-color: #eeeeee;
 }
 
 .login td.tableheader {
 	line-height: 40px;
-	border:1px solid #ccc;
+	border: 1px solid #ccc;
 }
 
-.login select, .login input[type=text], input[type=password] {
-	height:25px;
+.login select,
+.login input[type=text],
+input[type=password] {
+	height: 25px;
 	width: 225px;
 	padding-left: 3px;
 	box-sizing: border-box;
@@ -419,19 +482,20 @@ table.tablestyle_inner td {
 	outline: none;
 }
 
-.login input[type=button], input[type=submit] {
-  background-color: #367cb5;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
+.login input[type=button],
+input[type=submit] {
+	background-color: #367cb5;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	padding: 8px 16px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
 }
 
 .amount {
-	font-family: Verdana, Arial, Helvetica;
+	font-family: 'Almarai', Verdana, Arial, Helvetica;
 	font-size: 11px;
 	text-align: right;
 }
@@ -441,65 +505,66 @@ input.amount {
 }
 
 .editbutton {
-   color:#0000FF;
-   background-color:transparent;
-   border-style:none;
-   text-decoration:underline;
-   cursor: pointer;
+	color: #0000FF;
+	background-color: transparent;
+	border-style: none;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
-.navibutton[disabled], .navibutton[disabled] span {
-  color:#808080;
-  text-decoration: none;
-  cursor: auto;
+.navibutton[disabled],
+.navibutton[disabled] span {
+	color: #808080;
+	text-decoration: none;
+	cursor: auto;
 }
 
 button.navibutton {
-	font-family: Verdana, Arial, Helvetica;
+	font-family: 'Almarai', Verdana, Arial, Helvetica;
 	font-size: 11px;
 	font-weight: bold;
-   color:#000;
-   padding: 0 3px;
-   background-color:transparent;
-   border-style:none;
-   cursor: pointer;
+	color: #000;
+	padding: 0 3px;
+	background-color: transparent;
+	border-style: none;
+	cursor: pointer;
 }
 
 .navibutton span {
 	text-decoration: underline;
-}	
+}
 
 .navibar {
-    padding: 0 3px;
+	padding: 0 3px;
 	color: #000;
-    border-collapse: collapse;
-    background-color: #dee7ec;
+	border-collapse: collapse;
+	background-color: #dee7ec;
 }
 
 .navibar tr td {
-    border: none;
+	border: none;
 }
 
 .listsubmit {
-    display: none;
+	display: none;
 }
 
-ul.ajaxtabs{
+ul.ajaxtabs {
 	padding: 3px 0 0 0;
 	margin: 3px 3px 0 3px;
-	font: 12px Tahoma,Verdana;
+	font: 12px 'Almarai', Tahoma, Verdana;
 	font-weight: bold;
 }
 
-ul.ajaxtabs li{
+ul.ajaxtabs li {
 	list-style: none;
 	margin: 0;
 	display: inline;
 }
 
-ul.ajaxtabs li button{
-    background-color: #dee7ec;
-/*	background-repeat: repeat-x;
+ul.ajaxtabs li button {
+	background-color: #dee7ec;
+	/*	background-repeat: repeat-x;
 	background-position: top; */
 	padding: 3px 8px;
 	margin: 0px;
@@ -510,29 +575,32 @@ ul.ajaxtabs li button{
 	font-weight: bold;
 }
 
-ul.ajaxtabs li button:hover{
+ul.ajaxtabs li button:hover {
 	border-top: 1px solid #8cacbb;
-	color:#FFFFFF;
+	color: #FFFFFF;
 }
-div.spaceBox{
+
+div.spaceBox {
 	background-color: #8cacbb;
-	height:8px;
+	height: 8px;
 	border-bottom: 1px solid #8cacbb;
 	border-left: 1px solid #8cacbb;
-	border-right:1px solid #8cacbb;
+	border-right: 1px solid #8cacbb;
 	margin: 0 3px 0px 3px
 }
 
-div.contentBox{
+div.contentBox {
 	border: 1px solid #8cacbb;
 	margin: 0 3px 3px 3px
 }
 
-ul.ajaxtabs li button.current, ul.ajaxtabs li button.current:hover{
+ul.ajaxtabs li button.current,
+ul.ajaxtabs li button.current:hover {
 	border-left: 1px solid #8cacbb;
 	background-color: #8cacbb;
-	color:#FFFFFF;
+	color: #FFFFFF;
 }
+
 #hints {
 	font-size: 13px;
 	padding: 5px;
@@ -542,6 +610,7 @@ ul.ajaxtabs li button.current, ul.ajaxtabs li button.current:hover{
 	background-color: #FFFFE0;
 	white-space: nowrap;
 }
+
 /*
 	Calendar style
 */
@@ -554,83 +623,108 @@ ul.ajaxtabs li button.current, ul.ajaxtabs li button.current:hover{
 	width: 270px;
 	z-index: 99;
 }
-#CC { 
-	position:absolute;
-	background-color:#FFF;
-	margin:0; padding:0;
-	display:none;
+
+#CC {
+	position: absolute;
+	background-color: #FFF;
+	margin: 0;
+	padding: 0;
+	display: none;
 	z-index: 100;
 }
-#CC table { 
-	font-family: arial, verdana, helvetica, sans-serif;
+
+#CC table {
+	font-family: 'Almarai', arial, verdana, helvetica, sans-serif;
 	font-size: 8pt;
 	border-left: 1px solid #336;
 	border-right: 1px solid #336;
 }
+
 #CC th {
 	font-weight: normal;
 	text-align: center;
 }
+
 #CC th a {
 	font-weight: normal;
 	text-decoration: none;
 	color: #FFF;
 	padding: 1px;
 }
+
 #CC td {
 	text-align: center;
 }
+
 #CC .header {
 	background-color: #285b86;
 }
+
 #CC .weekday {
 	background-color: #eee;
 	color: #000;
 }
+
 #CC .weekend {
 	background-color: #FFC;
 	color: #000;
 }
+
 #CC .weekno {
 	background-color: #c0daf8;
 	color: #555;
 }
+
 #CC .current {
 	border: 1px solid #339;
 	background-color: #285b86;
 	color: #FFF;
 }
-#CC .weekday, #CC .weekend, #CC .current {
+
+#CC .weekday,
+#CC .weekend,
+#CC .current {
 	display: block;
 	text-decoration: none;
 	border: 1px solid #FFF;
 	width: 2em;
 }
-#CC .weekday:hover, #CC .weekend:hover, #CC .current:hover {
+
+#CC .weekday:hover,
+#CC .weekend:hover,
+#CC .current:hover {
 	color: #FFF;
 	background-color: #285b86;
 	border: 1px solid #999;
 }
+
 #CC .previous {
 	text-align: left;
 }
+
 #CC .next {
 	text-align: right;
 }
-#CC .previous, #CC .next {
+
+#CC .previous,
+#CC .next {
 	padding: 1px 3px 1px 3px;
 	font-size: 1.4em;
 }
-#CC .previous a, #CC .next a {
+
+#CC .previous a,
+#CC .next a {
 	color: #FFF;
 	text-decoration: none;
 	font-weight: bold;
 }
+
 #CC .title {
 	text-align: center;
-	font-weight: bold; 
+	font-weight: bold;
 	color: #FFF;
 }
+
 #CC .empty {
 	background-color: #ddd;
 	border: 1px solid #FFF;
@@ -655,7 +749,7 @@ div.warn_msg {
 }
 
 div.note_msg {
-	margin: 10px; 
+	margin: 10px;
 	padding: 3px;
 	border: 1px solid #33cc00;
 	background-color: #ccffcc;
@@ -669,22 +763,111 @@ div.note_msg {
 }
 
 @media screen and (min-width: 1024px) {
-	body, .headingtext3 { font-size: 11px; }
-	textarea { font-size: 13px; }
-	tr, td, th, input, select, a, button, .inputsubmit, .ajaxsubmit, .amount, button.navibutton { font-size: 12px; }
-	.quick_menu_selected, .menu_group, .titletext, .headingtext, .headingtext2, .errortext, #hints { font-size: 14px; }
-	.bottomBarCell { font-size: 11px; line-height: 13px; }
-	.footer, .footer td a { font-size: 10px; }
-	#CC table { font-size: 9pt; }
-	#CC .previous, #CC .next { font-size: 1.4em; }
+
+	body,
+	.headingtext3 {
+		font-size: 11px;
+	}
+
+	textarea {
+		font-size: 13px;
+	}
+
+	tr,
+	td,
+	th,
+	input,
+	select,
+	a,
+	button,
+	.inputsubmit,
+	.ajaxsubmit,
+	.amount,
+	button.navibutton {
+		font-size: 12px;
+	}
+
+	.quick_menu_selected,
+	.menu_group,
+	.titletext,
+	.headingtext,
+	.headingtext2,
+	.errortext,
+	#hints {
+		font-size: 14px;
+	}
+
+	.bottomBarCell {
+		font-size: 11px;
+		line-height: 13px;
+	}
+
+	.footer,
+	.footer td a {
+		font-size: 10px;
+	}
+
+	#CC table {
+		font-size: 9pt;
+	}
+
+	#CC .previous,
+	#CC .next {
+		font-size: 1.4em;
+	}
 }
+
 @media screen and (min-width: 1200px) {
-	body, .headingtext3 { font-size: 12px; }
-	textarea { font-size: 14px; }
-	tr, td, th, input, select, a, button, .inputsubmit, .ajaxsubmit, .amount, button.navibutton { font-size: 13px; }
-	.quick_menu_selected, .menu_group, .titletext, .headingtext, .headingtext2, .errortext, #hints { font-size: 15px; }
-	.bottomBarCell { font-size: 12px; line-height: 14px; }
-	.footer, .footer td a { font-size: 11px; }
-	#CC table { font-size: 10pt; }
-	#CC .previous, #CC .next { font-size: 1.4em; }
+
+	body,
+	.headingtext3 {
+		font-size: 12px;
+	}
+
+	textarea {
+		font-size: 14px;
+	}
+
+	tr,
+	td,
+	th,
+	input,
+	select,
+	a,
+	button,
+	.inputsubmit,
+	.ajaxsubmit,
+	.amount,
+	button.navibutton {
+		font-size: 13px;
+	}
+
+	.quick_menu_selected,
+	.menu_group,
+	.titletext,
+	.headingtext,
+	.headingtext2,
+	.errortext,
+	#hints {
+		font-size: 15px;
+	}
+
+	.bottomBarCell {
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	.footer,
+	.footer td a {
+		font-size: 11px;
+	}
+
+	#CC table {
+		font-size: 10pt;
+	}
+
+	#CC .previous,
+	#CC .next {
+		font-size: 1.4em;
+	}
 }
