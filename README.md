@@ -37,9 +37,10 @@ To use FrontAccounting application you should have already installed:
 * Download and unpack latest FrontAccounting tarball from SourceForge into folder created under web server document root, e.g. **/var/www/html/frontaccounting**
 
 * If you prefer easy upgrades when new minor versions are released, you can clone sources from SourceForge project page or Github mirror e.g.:
->	# cd  /var/www/html
->	# git clone `https://git.code.sf.net/p/frontaccounting/git` frontaccounting
-
+```bash
+cd  /var/www/html
+git clone `https://git.code.sf.net/p/frontaccounting/git` frontaccounting
+```
 Master branch contains all the latest bugfixes made atop the last stable release.
 	
 ### 3. Installation
